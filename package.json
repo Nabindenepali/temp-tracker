@@ -1,0 +1,14 @@
+{
+  "name": "temp-tracker",
+  "version": "1.0.0",
+  "description": "A simple program to keep track of high, low and average temperatures",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "temperature", "tracker", "temperature tracker"
+  ],
+  "author": "nabindenepali@outlook.com",
+  "license": "ISC"
+}
