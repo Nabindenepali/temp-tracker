@@ -37,6 +37,18 @@ class TempTracker {
     }
 
     /***
+     * Computes the average temperature recorded so far
+     * @param temp - New temperature reading
+     */
+    calculateAverageTemp(temp) {
+        if (this.#averageTemp === null) {
+            this.#averageTemp = temp;
+            return;
+        }
+        this.#averageTemp = (this.#readingCount * this.#averageTemp + temp) / (this.#readingCount + 1);
+    }
+
+    /***
      * Getter for lowest temperature
      * @returns lowest temperature seen so far
      */
@@ -80,6 +92,8 @@ class TempTracker {
         }
         this.calculateLowestTemp(temp);
         this.calculateHighestTemp(temp);
+        this.calculateAverageTemp(temp);
+        this.#readingCount++;
         return temp;
     }
 }
