@@ -1,6 +1,6 @@
 /***
  * TempTracker class that keeps track of lowest, highest and average temperature of readings so far
- * Temperature values are stored internally in Celsius
+ * All the temperature readings need to be in the same unit for a tracker instance
  */
 class TempTracker {
     #lowestTemp = null;
@@ -11,18 +11,14 @@ class TempTracker {
     /***
      * A method to add new temperature to our tracker class
      * @param temp - New temperature
-     * @param unit - Unit of temperature - Celsius is default
      * @returns entered temperature
      */
-    addTemp(temp, unit = 'C') {
+    addTemp(temp) {
         if (typeof temp === 'undefined') {
             throw new Error('Invalid Input: Temperature Value Not Specified');
         }
         if (!Number.isFinite(temp)) {
             throw new Error('Invalid Input: Temperature Value Invalid');
-        }
-        if (!(unit === 'C' || unit === 'F')) {
-            throw new Error('Invalid Input: Temperature Unit Invalid');
         }
         return temp;
     }
