@@ -15,6 +15,7 @@ function display(tempTracker) {
     console.log('Lowest temp:', tempTracker.lowestTemp);
     console.log('Highest temp:', tempTracker.highestTemp);
     console.log('Average temp:', Number(tempTracker.averageTemp.toFixed(2)));
+    console.log('');
 }
 
 const tempTracker = new TempTracker();
