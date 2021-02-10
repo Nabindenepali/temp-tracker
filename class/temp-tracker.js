@@ -9,18 +9,17 @@ class TempTracker {
     #readingCount = 0; // Total no. of readings taken so far
 
     /***
-     * A method to add new temperature to our tracker class
-     * @param temp - New temperature
-     * @returns entered temperature
+     * Computes the lowest temperature recorded so far
+     * @param temp - New temperature reading
      */
-    addTemp(temp) {
-        if (typeof temp === 'undefined') {
-            throw new Error('Invalid Input: Temperature Value Not Specified');
+    calculateLowestTemp(temp) {
+        if (this.#lowestTemp === null) {
+            this.#lowestTemp = temp;
+            return;
         }
-        if (!Number.isFinite(temp)) {
-            throw new Error('Invalid Input: Temperature Value Invalid');
+        if (temp < this.#lowestTemp) {
+            this.#lowestTemp = temp;
         }
-        return temp;
     }
 
     /***
@@ -28,6 +27,9 @@ class TempTracker {
      * @returns lowest temperature seen so far
      */
     get lowestTemp() {
+        if (this.#lowestTemp === null) {
+            throw new Error('Invalid Function Call: No Temperature Recording Exists So Far');
+        }
         return this.#lowestTemp;
     }
 
@@ -45,6 +47,22 @@ class TempTracker {
      */
     get averageTemp() {
         return this.#averageTemp;
+    }
+
+    /***
+     * A method to add new temperature to our tracker class
+     * @param temp - New temperature
+     * @returns entered temperature
+     */
+    addTemp(temp) {
+        if (typeof temp === 'undefined') {
+            throw new Error('Invalid Input: Temperature Value Not Specified');
+        }
+        if (!Number.isFinite(temp)) {
+            throw new Error('Invalid Input: Temperature Value Invalid');
+        }
+        this.calculateLowestTemp(temp);
+        return temp;
     }
 }
 
