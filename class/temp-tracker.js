@@ -45,6 +45,9 @@ class TempTracker {
             this.#averageTemp = temp;
             return;
         }
+
+        // Calculate average temperature using number of past readings and average recorded so far
+        // This is done to avoid recording all the temperatures and calculating average every time
         this.#averageTemp = (this.#readingCount * this.#averageTemp + temp) / (this.#readingCount + 1);
     }
 
