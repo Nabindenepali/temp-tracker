@@ -86,5 +86,59 @@ describe('Get lowest temperature so far', () => {
     });
 });
 
+describe('Get highest temperature so far', () => {
+    describe('Test when no temperature tracked ever', () => {
+        const tempTracker = new TempTracker();
+
+        it('should fail when no temperature recording exists', () => {
+            expect(() => tempTracker.lowestTemp).to.throw('Invalid Function Call: No Temperature Recording Exists So Far');
+        });
+    });
+
+    describe('Test when single temperature recorded', () => {
+        const tempTracker = new TempTracker();
+        tempTracker.addTemp(30);
+
+        it('should return the same temperature tracked', () => {
+            expect(tempTracker.highestTemp).to.equal(30);
+        });
+    });
+
+    describe('Test when multiple temperatures recorded', () => {
+        it('should return correct result when first temperature tracked is the highest', () => {
+            const tempTracker = new TempTracker();
+            tempTracker.addTemp(50);
+            tempTracker.addTemp(45);
+            tempTracker.addTemp(40);
+            tempTracker.addTemp(35);
+            tempTracker.addTemp(30);
+
+            expect(tempTracker.highestTemp).to.equal(50);
+        });
+
+        it('should return correct result when last temperature tracked is the highest', () => {
+            const tempTracker = new TempTracker();
+            tempTracker.addTemp(30);
+            tempTracker.addTemp(35);
+            tempTracker.addTemp(40);
+            tempTracker.addTemp(45);
+            tempTracker.addTemp(50);
+
+            expect(tempTracker.highestTemp).to.equal(50);
+        });
+
+        it('should return correct result when highest temperature tracked lies in between', () => {
+            const tempTracker = new TempTracker();
+            tempTracker.addTemp(40);
+            tempTracker.addTemp(35);
+            tempTracker.addTemp(30);
+            tempTracker.addTemp(50);
+            tempTracker.addTemp(45);
+
+            expect(tempTracker.highestTemp).to.equal(50);
+        });
+    });
+});
+
 
 

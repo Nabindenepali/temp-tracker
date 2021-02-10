@@ -23,6 +23,20 @@ class TempTracker {
     }
 
     /***
+     * Computes the highest temperature recorded so far
+     * @param temp - New temperature reading
+     */
+    calculateHighestTemp(temp) {
+        if (this.#highestTemp === null) {
+            this.#highestTemp = temp;
+            return;
+        }
+        if (temp > this.#highestTemp) {
+            this.#highestTemp = temp;
+        }
+    }
+
+    /***
      * Getter for lowest temperature
      * @returns lowest temperature seen so far
      */
@@ -38,6 +52,9 @@ class TempTracker {
      * @returns highest temperature seen so far
      */
     get highestTemp() {
+        if (this.#highestTemp === null) {
+            throw new Error('Invalid Function Call: No Temperature Recording Exists So Far');
+        }
         return this.#highestTemp;
     }
 
@@ -62,6 +79,7 @@ class TempTracker {
             throw new Error('Invalid Input: Temperature Value Invalid');
         }
         this.calculateLowestTemp(temp);
+        this.calculateHighestTemp(temp);
         return temp;
     }
 }
