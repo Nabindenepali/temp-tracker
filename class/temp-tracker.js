@@ -56,7 +56,7 @@ class TempTracker {
      * @returns lowest temperature seen so far
      */
     get lowestTemp() {
-        if (this.#lowestTemp === null) {
+        if (!this.#readingCount) {
             throw new Error('Invalid Function Call: No Temperature Recording Exists So Far');
         }
         return this.#lowestTemp;
@@ -67,7 +67,7 @@ class TempTracker {
      * @returns highest temperature seen so far
      */
     get highestTemp() {
-        if (this.#highestTemp === null) {
+        if (!this.#readingCount) {
             throw new Error('Invalid Function Call: No Temperature Recording Exists So Far');
         }
         return this.#highestTemp;
@@ -78,6 +78,9 @@ class TempTracker {
      * @returns average temperature of readings so far
      */
     get averageTemp() {
+        if (!this.#readingCount) {
+            throw new Error('Invalid Function Call: No Temperature Recording Exists So Far');
+        }
         return this.#averageTemp;
     }
 

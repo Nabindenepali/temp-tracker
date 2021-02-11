@@ -145,7 +145,7 @@ describe('Get average temperature so far', () => {
         const tempTracker = new TempTracker();
 
         it('should fail when no temperature recording exists', () => {
-            expect(() => tempTracker.lowestTemp).to.throw('Invalid Function Call: No Temperature Recording Exists So Far');
+            expect(() => tempTracker.averageTemp).to.throw('Invalid Function Call: No Temperature Recording Exists So Far');
         });
     });
 
@@ -154,7 +154,7 @@ describe('Get average temperature so far', () => {
         tempTracker.addTemp(30);
 
         it('should return the same temperature tracked', () => {
-            expect(tempTracker.highestTemp).to.equal(30);
+            expect(tempTracker.averageTemp).to.equal(30);
         });
     });
 
