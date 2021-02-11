@@ -9,14 +9,20 @@ class TempTracker {
     #readingCount = 0; // Total no. of readings taken so far
 
     /***
+     * Sets low, high and avg temperatures to a specified value
+     * @param temp - Specified temperature
+     */
+    setValues(temp) {
+        this.#lowestTemp = temp;
+        this.#highestTemp = temp;
+        this.#averageTemp = temp;
+    }
+
+    /***
      * Computes the lowest temperature recorded so far
      * @param temp - New temperature reading
      */
     calculateLowestTemp(temp) {
-        if (this.#lowestTemp === null) {
-            this.#lowestTemp = temp;
-            return;
-        }
         if (temp < this.#lowestTemp) {
             this.#lowestTemp = temp;
         }
@@ -27,10 +33,6 @@ class TempTracker {
      * @param temp - New temperature reading
      */
     calculateHighestTemp(temp) {
-        if (this.#highestTemp === null) {
-            this.#highestTemp = temp;
-            return;
-        }
         if (temp > this.#highestTemp) {
             this.#highestTemp = temp;
         }
@@ -41,14 +43,9 @@ class TempTracker {
      * @param temp - New temperature reading
      */
     calculateAverageTemp(temp) {
-        if (this.#averageTemp === null) {
-            this.#averageTemp = temp;
-            return;
-        }
-
         // Calculate average temperature using number of past readings and average recorded so far
         // This is done to avoid recording all the temperatures and calculating average every time
-        this.#averageTemp = (this.#readingCount * this.#averageTemp + temp) / (this.#readingCount + 1);
+        this.#averageTemp = ((this.#readingCount - 1) * this.#averageTemp + temp) / (this.#readingCount);
     }
 
     /***
@@ -96,10 +93,17 @@ class TempTracker {
         if (!Number.isFinite(temp)) {
             throw new Error('Invalid Input: Temperature Value Invalid');
         }
+
+        this.#readingCount++;
+        // Set low, high and avg temperature values for the very first reading
+        if (this.#readingCount === 1) {
+            this.setValues(temp);
+            return temp;
+        }
+
         this.calculateLowestTemp(temp);
         this.calculateHighestTemp(temp);
         this.calculateAverageTemp(temp);
-        this.#readingCount++;
         return temp;
     }
 }
